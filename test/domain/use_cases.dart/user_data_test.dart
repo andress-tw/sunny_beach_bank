@@ -23,7 +23,7 @@ void main() {
         name: mockName(),
         lastName: mockString(10),
         birthDate: mockDate(),
-        id: mockInteger().toString(),
+        id: "1",
       ),
       User(
         name: mockName(),
@@ -44,18 +44,41 @@ void main() {
         id: mockInteger().toString(),
       )
     ];
-    void arrangeUserService() {
+    void arrangeUsersService() {
       when(() => mockUserService.getUsers())
           .thenAnswer((_) async => userFromService);
+    }
+    void arrangeUserService() {
+      when(() => mockUserService.getUser(userFromService[0].id))
+          .thenAnswer((_) async => userFromService[0]);
     }
 
     test(
       "get users using the service",
       () async {
-        arrangeUserService();
+        arrangeUsersService();
         await sut.getUsers();
 
         verify(() => mockUserService.getUsers()).called(1);
+      },
+    );
+
+    test(
+      "should call the user service one time",
+      () async {
+        arrangeUserService();
+        final id = userFromService[0].id;
+        await sut.getUser(id);
+        verify(() => mockUserService.getUser(id)).called(1);
+      },
+    );
+    test(
+      "should get one user using the service",
+      () async {
+        arrangeUserService();
+        final id = userFromService[0].id;
+        final user = await sut.getUser(id);
+        expect(user.name, userFromService[0].name);
       },
     );
   });
