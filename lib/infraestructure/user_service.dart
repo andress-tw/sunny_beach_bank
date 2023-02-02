@@ -7,8 +7,8 @@ import 'package:sunny_beach_bank/domain/models/user/user_repository.dart';
 class UserService extends UserRepository {
   final _users = List.generate(
     10,
-    (_) => User(
-      id: mockInteger().toString(),
+    (int i) => User(
+      id: i.toString(),
       name: mockName(),
       lastName: mockString(10),
       birthDate: mockDate(),

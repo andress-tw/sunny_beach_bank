@@ -3,7 +3,7 @@ import 'package:mock_data/mock_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sunny_beach_bank/domain/models/user/user.dart';
 import 'package:sunny_beach_bank/domain/use_cases/user_data.dart';
-import 'package:sunny_beach_bank/infraestructure/userService.dart';
+import 'package:sunny_beach_bank/infraestructure/user_service.dart';
 
 class MockUserService extends Mock implements UserService {}
 
@@ -23,7 +23,7 @@ void main() {
         name: mockName(),
         lastName: mockString(10),
         birthDate: mockDate(),
-        id: "1",
+        id: mockInteger().toString(),
       ),
       User(
         name: mockName(),
