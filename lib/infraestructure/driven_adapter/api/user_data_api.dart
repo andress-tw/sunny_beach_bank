@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:mock_data/mock_data.dart';
 import 'package:sunny_beach_bank/domain/models/user/user.dart';
 import 'package:sunny_beach_bank/domain/models/user/user_repository.dart';
 
-class UserService extends UserRepository {
+class UserDataApi extends UserRepository {
   final _users = List.generate(
     10,
     (int i) => User(

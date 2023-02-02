@@ -3,14 +3,14 @@ import 'package:mock_data/mock_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sunny_beach_bank/domain/models/user/user.dart';
 import 'package:sunny_beach_bank/domain/use_cases/user_data.dart';
-import 'package:sunny_beach_bank/infraestructure/user_service.dart';
+import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/user_data_api.dart';
 
-class MockUserService extends Mock implements UserService {}
+class MockUserService extends Mock implements UserDataApi {}
 
 void main() {
   late UserDataUseCase sut;
 
-  late UserService mockUserService;
+  late UserDataApi mockUserService;
 
   setUp(() {
     mockUserService = MockUserService();
@@ -48,6 +48,7 @@ void main() {
       when(() => mockUserService.getUsers())
           .thenAnswer((_) async => userFromService);
     }
+
     void arrangeUserService() {
       when(() => mockUserService.getUser(userFromService[0].id))
           .thenAnswer((_) async => userFromService[0]);

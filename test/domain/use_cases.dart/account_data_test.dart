@@ -1,17 +1,15 @@
-
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mock_data/mock_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sunny_beach_bank/domain/models/account/account.dart';
 import 'package:sunny_beach_bank/domain/use_cases/account_data.dart';
-import 'package:sunny_beach_bank/infraestructure/account_service.dart';
+import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/account_data_api.dart';
 
+class MockAccountService extends Mock implements AccountDataApi {}
 
-class MockAccountService extends Mock implements AccountService {}
 void main() {
   late AccountDataUseCase sut;
-  late AccountService mockAccountService;
+  late AccountDataApi mockAccountService;
 
   setUp(() {
     mockAccountService = MockAccountService();
@@ -19,21 +17,18 @@ void main() {
   });
 
   group('account user case', () {
-
     final userId = mockInteger().toString();
     final accountFromService = [
       Account(
-        id: mockInteger().toString(),
-        balance: mockInteger().toDouble(),
-        type: "1",
-        userid: userId
-      ),
+          id: mockInteger().toString(),
+          balance: mockInteger().toDouble(),
+          type: "1",
+          userid: userId),
       Account(
-        id: mockInteger().toString(),
-        balance: mockInteger().toDouble(),
-        type: "2",
-        userid: userId
-      )
+          id: mockInteger().toString(),
+          balance: mockInteger().toDouble(),
+          type: "2",
+          userid: userId)
     ];
 
     void arrangeAccountsService() {
@@ -46,7 +41,7 @@ void main() {
       () async {
         arrangeAccountsService();
         sut.getAccountsByUser(userId);
-         verify(() => mockAccountService.getAccountsByUser(userId)).called(1);
+        verify(() => mockAccountService.getAccountsByUser(userId)).called(1);
       },
     );
     test(
