@@ -6,9 +6,9 @@ class AccountDataApi extends AccountRepository {
   final _accounts = List.generate(
       10,
       (int i) => Account(
-          id: i.toString(),
-          balance: mockInteger().toDouble(),
-          type: mockRange(mockInteger, 1, min: 1, max: 2).toString(),
+          id: mockInteger(100000000, 999999999).toString(),
+          balance: mockInteger(1, 20000).toDouble(),
+          type: mockRange(mockInteger, 1, min: 1, max: 2)[0].toString(),
           userid: i.toString()));
 
   @override

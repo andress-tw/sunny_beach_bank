@@ -8,7 +8,7 @@ class UserDataApi extends UserRepository {
     (int i) => User(
       id: i.toString(),
       name: mockName(),
-      lastName: mockString(10),
+      lastName: mockString(7, 'a'),
       birthDate: mockDate(),
     ),
   );

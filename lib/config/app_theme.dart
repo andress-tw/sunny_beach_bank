@@ -5,6 +5,7 @@ class AppTheme {
   static const fontColorOnDark = Colors.white;
   static final ThemeData lightTheme = ThemeData.light().copyWith(
       primaryColor: Colors.indigo,
+      scaffoldBackgroundColor: Colors.grey[200],
       appBarTheme:
           const AppBarTheme().copyWith(backgroundColor: primary, elevation: 0),
       textButtonTheme: TextButtonThemeData(
