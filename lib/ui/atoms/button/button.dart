@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class AtomsButton extends StatelessWidget {
   final String text;
   final Icon? icon;
-  const AtomsButton({super.key, this.icon, required this.text});
+  final double? width;
+  const AtomsButton({super.key, this.icon, required this.text, this.width});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: width ?? double.infinity,
       child: icon != null
           ? TextButton.icon(
               onPressed: () {},

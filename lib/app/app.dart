@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sunny_beach_bank/config/app_theme.dart';
@@ -11,24 +10,27 @@ class SunnyBeachBankApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return MaterialApp(
       theme: AppTheme.lightTheme,
       onGenerateRoute: (routeSettings) {
         switch (routeSettings.name) {
           case (AppRoutes.home):
-            return MaterialPageRoute(builder: ((context) =>  HomeScreen(
-              user: ref.watch(userDataProvider).getUser("1"),
-              accounts: ref.watch(accountDataProvider).getAccountsByUser('1'),
-            )));
+            return MaterialPageRoute(
+                builder: ((context) => HomeScreen(
+                      user: ref.watch(userDataProvider).getUser("1"),
+                      accounts:
+                          ref.watch(accountDataProvider).getAccountsByUser('1'),
+                    )));
           default:
-            return MaterialPageRoute(builder: ((context) =>  HomeScreen(
-              user: ref.watch(userDataProvider).getUser("1"),
-              accounts: ref.watch(accountDataProvider).getAccountsByUser('1'),
-            )));
+            return MaterialPageRoute(
+                builder: ((context) => HomeScreen(
+                      user: ref.watch(userDataProvider).getUser("1"),
+                      accounts:
+                          ref.watch(accountDataProvider).getAccountsByUser('1'),
+                    )));
         }
       },
-      
-    );;
+    );
+    ;
   }
 }
