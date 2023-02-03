@@ -4,7 +4,8 @@ class AtomsButton extends StatelessWidget {
   final String text;
   final Icon? icon;
   final double? width;
-  const AtomsButton({super.key, this.icon, required this.text, this.width});
+  final Function? onClick;
+  const AtomsButton({super.key, this.icon, required this.text, this.width, this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +13,14 @@ class AtomsButton extends StatelessWidget {
       width: width ?? double.infinity,
       child: icon != null
           ? TextButton.icon(
-              onPressed: () {},
+              onPressed: () => onClick!(),
               icon: Icon(
                 icon?.icon!,
                 size: 24.0,
               ),
               label: Text(text),
             )
-          : TextButton(onPressed: () => {}, child: Text(text)),
+          : TextButton(onPressed: () => onClick, child: Text(text)),
     );
   }
 }

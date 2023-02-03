@@ -70,17 +70,18 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  AtomsButton(
+                children: [
+                  const AtomsButton(
                     text: 'Request',
                     icon: Icon(Icons.call_received),
                     width: 150,
                   ),
-                  SizedBox(width: 50),
+                  const SizedBox(width: 50),
                   AtomsButton(
                     text: 'Send',
                     icon: Icon(Icons.call_made),
                     width: 150,
+                    onClick: () => Navigator.pushNamed(context, 'transfer'),
                   )
                 ],
               ),

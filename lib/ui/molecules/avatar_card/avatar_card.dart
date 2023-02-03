@@ -26,6 +26,7 @@ class AvatarCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AtomsTitleText(type: textType, text: title),
+          SizedBox(height: 10,),
           AtomsTitleText(type: subTextType, text: subtitle)
         ],
       )
