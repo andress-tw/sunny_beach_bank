@@ -6,18 +6,18 @@ class InfoTopBar extends StatelessWidget
 {
   final String url;
   final String title;
-  final TitleType titleType;
+  final TextType textType;
   final String subtitle;
-  final TitleType subTitletype;
+  final TextType subTextType;
 
-  const InfoTopBar({super.key, required this.url, required this.title, required this.titleType, required this.subtitle, required this.subTitletype});
+  const InfoTopBar({super.key, required this.url, required this.title, required this.textType, required this.subtitle, required this.subTextType});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AvatarCard(url: url, title: title, subtitle: subtitle, titletype: titleType, subTitletype: subTitletype),
+        AvatarCard(url: url, title: title, subtitle: subtitle, textType: textType, subTextType: subTextType),
         IconButton(onPressed: (() {}), icon: const Icon(Icons.logout))
       ],
     );

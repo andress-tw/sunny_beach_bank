@@ -24,12 +24,12 @@ void main() {
   });
   final accountFromService = [
     Account(
-        id: mockInteger().toString(),
+        id: '123456789',
         balance: mockInteger().toDouble(),
         type: "1",
         userid: userId),
     Account(
-        id: mockInteger().toString(),
+        id: mockInteger(100000000, 999999999).toString(),
         balance: mockInteger().toDouble(),
         type: "2",
         userid: userId)
@@ -78,6 +78,28 @@ void main() {
           expect(
               find.text(
                   '${userFromService[0].name} ${userFromService[0].lastName}'),
+              findsOneWidget);
+        });
+      },
+    );
+    testWidgets(
+      "should render Balance widget",
+      (WidgetTester tester) async {
+
+        arrangeUserService();
+        arrangeAccountsService();
+
+        await mockNetworkImages(() async {
+          await tester.pumpWidget(createWidgetUnderTest());
+
+          await tester.pumpAndSettle();
+          final expectedAccountResult =accountFromService[0];
+          expect(
+              find.text(
+                  '\$${expectedAccountResult.balance}'),
+              findsOneWidget);
+          expect(
+              find.text('6789'),
               findsOneWidget);
         });
       },

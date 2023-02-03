@@ -3,6 +3,7 @@ import 'package:sunny_beach_bank/domain/models/account/account.dart';
 import 'package:sunny_beach_bank/domain/models/user/user.dart';
 import 'package:sunny_beach_bank/ui/atoms/button/button.dart';
 import 'package:sunny_beach_bank/ui/atoms/text/atoms_title_text.dart';
+import 'package:sunny_beach_bank/ui/organisms/balance.dart';
 import 'package:sunny_beach_bank/ui/organisms/info_top_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,9 +32,9 @@ class HomeScreen extends StatelessWidget {
                               ? user.profilePath!
                               : 'https://via.placeholder.com/150',
                           title: 'Welcome Back',
-                          titleType: TitleType.comment,
+                          textType: TextType.comment,
                           subtitle: '${user.name} ${user.lastName}',
-                          subTitletype: TitleType.subtitle);
+                          subTextType: TextType.subtitle);
                     } else if (snapshot.hasError) {
                       return const Text(
                           'Ha ocurrido un error, lo resolveremos en la brevedad posible');
@@ -45,7 +46,19 @@ class HomeScreen extends StatelessWidget {
                             height: 20,
                             child: CircularProgressIndicator()));
                   })),
+                  SizedBox(height: 20,),
+                  FutureBuilder<List<Account>>(
+                    future: accounts,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        Account account = snapshot.data![0];
+                        return Balance(balance: account.balance.toString(), accountNumber: account.id,);
+                      }
+                     return Text('no data');
+                    }
+                  )
             ],
+          
           ),
         ),
         Align(

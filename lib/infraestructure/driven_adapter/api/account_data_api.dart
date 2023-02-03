@@ -7,7 +7,7 @@ class AccountDataApi extends AccountRepository {
       10,
       (int i) => Account(
           id: mockInteger(100000000, 999999999).toString(),
-          balance: mockInteger().toDouble(),
+          balance: mockInteger(1, 20000).toDouble(),
           type: mockRange(mockInteger, 1, min: 1, max: 2)[0].toString(),
           userid: i.toString()));
 

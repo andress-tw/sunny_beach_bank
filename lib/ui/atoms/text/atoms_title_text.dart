@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-enum TitleType { title, subtitle, comment }
+enum TextType { title, subtitle, comment, bigText}
 
 class AtomsTitleText extends StatelessWidget {
   final String text;
-  final TitleType type;
+  final TextType type;
   const AtomsTitleText({super.key, required this.type, required this.text});
 
   @override
@@ -12,17 +12,21 @@ class AtomsTitleText extends StatelessWidget {
     TextStyle textStyle = const TextStyle().copyWith();
 
     switch (type) {
-      case TitleType.title:
+      case TextType.title:
         textStyle = const TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold);
         break;
-      case TitleType.subtitle:
+      case TextType.subtitle:
         textStyle = const TextStyle(
-            color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal);
+            color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal);
         break;
-      case TitleType.comment:
+      case TextType.comment:
         textStyle = const TextStyle(
-            color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w400);
+            color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w400);
+        break;
+       case TextType.bigText:
+        textStyle = const TextStyle(
+            color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold);
         break;
       default:
         textStyle;
