@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:mock_data/mock_data.dart';
 import 'package:sunny_beach_bank/domain/models/account/account.dart';
 import 'package:sunny_beach_bank/domain/models/account/account_repository.dart';
@@ -8,7 +10,7 @@ class AccountDataApi extends AccountRepository {
       (int i) => Account(
           id: mockInteger(100000000, 999999999).toString(),
           balance: mockInteger(1, 20000).toDouble(),
-          type: mockRange(mockInteger, 1, min: 1, max: 2)[0].toString(),
+          type: (Random().nextInt(2) + 1).toString(),
           userid: i.toString()));
 
   @override

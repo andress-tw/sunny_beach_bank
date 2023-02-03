@@ -5,11 +5,12 @@ class AtomsButton extends StatelessWidget {
   final Icon? icon;
   final double? width;
   final Function? onClick;
-  const AtomsButton({super.key, this.icon, required this.text, this.width, this.onClick});
+  const AtomsButton(
+      {super.key, this.icon, required this.text, this.width, this.onClick});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width ?? double.infinity,
       child: icon != null
           ? TextButton.icon(

@@ -28,9 +28,7 @@ class HomeScreen extends StatelessWidget {
                     if (snapshot.hasData) {
                       User user = snapshot.data!;
                       return InfoTopBar(
-                          url: user.profilePath != null
-                              ? user.profilePath!
-                              : 'https://via.placeholder.com/150',
+                          url: user.profilePath,
                           title: 'Welcome Back',
                           textType: TextType.comment,
                           subtitle: '${user.name} ${user.lastName}',
@@ -46,19 +44,22 @@ class HomeScreen extends StatelessWidget {
                             height: 20,
                             child: CircularProgressIndicator()));
                   })),
-                  SizedBox(height: 20,),
-                  FutureBuilder<List<Account>>(
-                    future: accounts,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        Account account = snapshot.data![0];
-                        return Balance(balance: account.balance.toString(), accountNumber: account.id,);
-                      }
-                     return Text('no data');
+              const SizedBox(
+                height: 20,
+              ),
+              FutureBuilder<List<Account>>(
+                  future: accounts,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      Account account = snapshot.data![0];
+                      return Balance(
+                        balance: account.balance.toString(),
+                        accountNumber: account.id,
+                      );
                     }
-                  )
+                    return const Text('no data');
+                  })
             ],
-          
           ),
         ),
         Align(
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(width: 50),
                   AtomsButton(
                     text: 'Send',
-                    icon: Icon(Icons.call_made),
+                    icon: const Icon(Icons.call_made),
                     width: 150,
                     onClick: () => Navigator.pushNamed(context, 'transfer'),
                   )

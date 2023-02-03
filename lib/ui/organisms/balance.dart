@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sunny_beach_bank/ui/atoms/button/button.dart';
 import 'package:sunny_beach_bank/ui/atoms/text/atoms_title_text.dart';
@@ -6,12 +5,13 @@ import 'package:sunny_beach_bank/ui/atoms/text/atoms_title_text.dart';
 class Balance extends StatelessWidget {
   final String balance;
   final String accountNumber;
-  const Balance({super.key, required this.balance, required this.accountNumber});
+  const Balance(
+      {super.key, required this.balance, required this.accountNumber});
 
   @override
   Widget build(BuildContext context) {
-
-    String hiddenAccountNumber = accountNumber.substring(accountNumber.length -4, accountNumber.length);
+    String hiddenAccountNumber =
+        accountNumber.substring(accountNumber.length - 4, accountNumber.length);
     return Card(
       color: Colors.indigo[25],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -20,22 +20,27 @@ class Balance extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AtomsTitleText(text:'Your balance is', type: TextType.comment),
-                SizedBox(height: 20,),
-                AtomsTitleText(text:'\$${balance}', type: TextType.bigText), 
-              ]
-              
-            ),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const AtomsTitleText(
+                  text: 'Your balance is', type: TextType.comment),
+              const SizedBox(
+                height: 20,
+              ),
+              AtomsTitleText(text: '\$$balance', type: TextType.bigText),
+            ]),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                AtomsButton(text: 'Statistic', icon: Icon(Icons.show_chart), width: 120,),
-                SizedBox(height: 20,),
-                 AtomsTitleText(text: hiddenAccountNumber, type: TextType.comment), 
-
+                const AtomsButton(
+                  text: 'Statistic',
+                  icon: Icon(Icons.show_chart),
+                  width: 120,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                AtomsTitleText(
+                    text: hiddenAccountNumber, type: TextType.comment),
               ],
             )
           ],

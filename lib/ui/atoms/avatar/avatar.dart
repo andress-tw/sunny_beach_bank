@@ -7,7 +7,6 @@ class AtomsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      
       child: CircleAvatar(
         maxRadius: 30,
         backgroundColor: Colors.grey[900],
