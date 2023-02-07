@@ -7,4 +7,6 @@ class AccountDataUseCase {
   AccountDataUseCase(this.accountRepository);
 
   Future<List<Account>> getAccountsByUser(String userId) => accountRepository.getAccountsByUser(userId);
+
+  Future<List<Account>> getAccounts() => accountRepository.getAccounts();
 }

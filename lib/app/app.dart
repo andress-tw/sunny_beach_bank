@@ -24,7 +24,9 @@ class SunnyBeachBankApp extends ConsumerWidget {
                     )));
           case (AppRoutes.transfer):
             return MaterialPageRoute(
-                builder: ((context) => const TransferScreen()));
+                builder: ((context) => TransferScreen(
+                  accounts: ref.watch(accountDataProvider).getAccounts(),
+                )));
           default:
             return MaterialPageRoute(
                 builder: ((context) => HomeScreen(

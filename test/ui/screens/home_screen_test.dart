@@ -27,12 +27,24 @@ void main() {
         id: '123456789',
         balance: mockInteger().toDouble(),
         type: "1",
-        userid: userId),
+        user: User(
+                name: mockName(),
+                lastName: mockString(10),
+                birthDate: mockDate(),
+                id: userId 
+              )
+    ),
     Account(
         id: mockInteger(100000000, 999999999).toString(),
         balance: mockInteger().toDouble(),
         type: "2",
-        userid: userId)
+        user: User(
+                name: mockName(),
+                lastName: mockString(10),
+                birthDate: mockDate(),
+                id: userId 
+              )
+    )
   ];
 
   final userFromService = [
