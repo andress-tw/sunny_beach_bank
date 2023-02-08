@@ -21,7 +21,7 @@ class AtomsButton extends StatelessWidget {
               ),
               label: Text(text),
             )
-          : TextButton(onPressed: () => onClick, child: Text(text)),
+          : TextButton(onPressed: () => onClick!(), child: Text(text)),
     );
   }
 }

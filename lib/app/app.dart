@@ -37,6 +37,5 @@ class SunnyBeachBankApp extends ConsumerWidget {
         }
       },
     );
-    ;
   }
 }
