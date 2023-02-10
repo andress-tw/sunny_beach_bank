@@ -67,11 +67,10 @@ void main() {
   }
 
   Widget createWidgetUnderTest() {
-    return MaterialApp(
+    return const MaterialApp(
         title: 'Home Screen',
         home: HomeScreen(
-          user: mockUserService.getUser(userId),
-          accounts: mockAccountService.getAccountsByUser(userId),
+          
         ));
   }
 

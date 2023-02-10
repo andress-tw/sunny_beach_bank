@@ -51,9 +51,7 @@ void main() {
   Widget createWidgetUnderTest() {
     return  MaterialApp(
         title: 'Transfer Screen',
-        home: TransferScreen(
-          accounts: mockAccountService.getAccounts()
-        ));
+        home: TransferScreen());
   }
   group('Transfer Screen', () {
 

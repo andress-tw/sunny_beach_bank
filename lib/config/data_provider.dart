@@ -1,14 +1,28 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:sunny_beach_bank/domain/models/account/account.dart';
+import 'package:sunny_beach_bank/domain/models/user/user.dart';
 import 'package:sunny_beach_bank/domain/use_cases/account_data.dart';
 import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/account_data_api.dart';
 import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/user_data_api.dart';
 
 import '../domain/use_cases/user_data.dart';
 
-final userDataProvider = Provider<UserDataUseCase>((ref) {
-  return UserDataUseCase(UserDataApi());
-});
+class DataProvider extends ChangeNotifier {
 
-final accountDataProvider = Provider<AccountDataUseCase>((ref) {
-  return AccountDataUseCase(AccountDataApi());
-});
+  List<User> users = [];
+  List<Account> accounts = [];
+
+  DataProvider(){
+    getUserData();
+    getAccountData();
+  }
+
+  getUserData() async {
+    users = await UserDataUseCase(UserDataApi()).getUsers();
+     notifyListeners();
+  }
+  getAccountData() async {
+    accounts = await  AccountDataUseCase(AccountDataApi()).getAccounts();
+     notifyListeners();
+  }
+}

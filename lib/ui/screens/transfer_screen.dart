@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sunny_beach_bank/config/data_provider.dart';
 import 'package:sunny_beach_bank/domain/models/account/account.dart';
 import 'package:sunny_beach_bank/ui/atoms/button/button.dart';
 import 'package:sunny_beach_bank/ui/atoms/input_field/input_field.dart';
@@ -7,10 +9,10 @@ import 'package:sunny_beach_bank/ui/atoms/text/atoms_title_text.dart';
 import 'package:sunny_beach_bank/ui/organisms/info_accounts_transfer.dart';
 
 class TransferScreen extends StatelessWidget {
-  final Future<List<Account>> accounts;
+  
   final GlobalKey<FormState> myFormKey = GlobalKey<FormState>();
   
-  TransferScreen({super.key, required this.accounts});
+  TransferScreen({super.key});
 
   final Map<String, String> formValues = {
       'amount': "0"
@@ -18,6 +20,8 @@ class TransferScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    final dataProvider = Provider.of<DataProvider>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Transfer Money'),
@@ -25,20 +29,11 @@ class TransferScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(children:  [
-          FutureBuilder<List<Account>>(
-            future: accounts,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<Account> accounts = snapshot.data!;
-                return InfoAccountsTransfer(
-                  key: const Key('transfer_widget'),
-                  accounts: accounts,
-                  textType: TextType.title,
-                  subTextType: TextType.comment);
-              }
-              return const Text('no data');
-            }
-          ),
+          InfoAccountsTransfer(
+            key: const Key('transfer_widget'),
+            accounts: dataProvider.accounts,
+            textType: TextType.title,
+            subTextType: TextType.comment),
           Center(
             child: Form(
               key: myFormKey,
