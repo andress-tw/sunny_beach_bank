@@ -22,14 +22,21 @@ class AccountDataApi extends AccountRepository {
         ));
 
   @override
-  Future<List<Account>> getAccountsByUser(String userId) async {
+  Future <Account> getAccountByUser(String userId) async {
     await Future.delayed(const Duration(seconds: 1));
-    return _accounts.where((element) => element.user.id == userId).toList();
+    return _accounts.where((element) => element.user.id == userId).toList()[0];
   }
 
   @override
   Future<List<Account>> getAccounts() async {
     await Future.delayed(const Duration(seconds: 1));
     return _accounts;
+  }
+  
+  @override
+  Future<double> updateBalanceByUser(String userId, double value) async {
+    Account account = await getAccountByUser(userId);
+    account.balance = account.balance - value;
+  return account.balance;
   }
 }

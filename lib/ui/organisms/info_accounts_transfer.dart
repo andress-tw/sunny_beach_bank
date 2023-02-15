@@ -13,7 +13,9 @@ class InfoAccountsTransfer extends StatefulWidget {
   const InfoAccountsTransfer(
       {super.key,
       required this.textType,
-      required this.subTextType, required this.accounts});
+      required this.subTextType, 
+      required this.accounts
+  });
 
   @override
   State<InfoAccountsTransfer> createState() => _InfoAccountsTransferState();
@@ -27,14 +29,12 @@ class _InfoAccountsTransferState extends State<InfoAccountsTransfer> {
 
     for(var account in widget.accounts){
       itemsList.add(PopupMenuItem(
-                  value: account.user.id,
-                  child: Text("${account.user.name} ${account.user.lastName}" )
-                  
-                  )
+        value: account.user.id,
+        child: Text("${account.user.name} ${account.user.lastName}" )
+      )
       );
     }
-     
-    
+
     Account selectedAccount = widget.accounts[int.parse(selectedAccountId??"1")];
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -43,7 +43,6 @@ class _InfoAccountsTransferState extends State<InfoAccountsTransfer> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            
             AvatarCard(
                 url: selectedAccount.user.profilePath,
                 title: "${selectedAccount.user.name} ${selectedAccount.user.lastName}",
@@ -52,11 +51,9 @@ class _InfoAccountsTransferState extends State<InfoAccountsTransfer> {
                 subTextType: widget.subTextType),
             //const Icon(Icons.credit_card_rounded),
             PopupMenuButton(
-              initialValue: widget.accounts[0].user.id,
+              initialValue: widget.accounts.isNotEmpty?widget.accounts[0].user.id:'',
               onSelected: (value) => setState(() {
-                
                 selectedAccountId = value;
-                
               }),
               itemBuilder:(context) => itemsList
                

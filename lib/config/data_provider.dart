@@ -1,14 +1,36 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:sunny_beach_bank/domain/models/account/account.dart';
+import 'package:sunny_beach_bank/domain/models/user/user.dart';
+
+import 'package:sunny_beach_bank/domain/use_cases/user_data.dart';
 import 'package:sunny_beach_bank/domain/use_cases/account_data.dart';
-import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/account_data_api.dart';
-import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/user_data_api.dart';
+class DataProvider extends ChangeNotifier {
 
-import '../domain/use_cases/user_data.dart';
+  final UserDataUseCase userDataUseCase;
+  final AccountDataUseCase accountDataUseCase;
 
-final userDataProvider = Provider<UserDataUseCase>((ref) {
-  return UserDataUseCase(UserDataApi());
-});
+  List<User> users = [];
+  List<Account> accounts = [];
+  double balance = 0;
+  DataProvider(this.userDataUseCase, this.accountDataUseCase){
+    getUserData();
+    getAccountData();
+    updateBalanceByUser("1", "0");
+  }
 
-final accountDataProvider = Provider<AccountDataUseCase>((ref) {
-  return AccountDataUseCase(AccountDataApi());
-});
+  getUserData() async {
+    users = await userDataUseCase.getUsers();
+     notifyListeners();
+  }
+
+   getAccountData() async {
+    accounts = await  accountDataUseCase.getAccounts();
+     notifyListeners();
+  }
+
+  updateBalanceByUser(userId, value) async {
+    double val = double.parse(value);
+    balance = await  accountDataUseCase.updateBalanceByUser(userId, val);
+    notifyListeners();
+  }
+}
