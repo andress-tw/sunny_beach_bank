@@ -45,24 +45,24 @@ void main() {
     ];
 
     void arrangeAccountsService() {
-      when(() => mockAccountService.getAccountsByUser(userId))
-          .thenAnswer((_) async => accountFromService);
+      when(() => mockAccountService.getAccountByUser(userId))
+          .thenAnswer((_) async => accountFromService[0]);
     }
 
     test(
       "get account using the service",
       () async {
         arrangeAccountsService();
-        sut.getAccountsByUser(userId);
-        verify(() => mockAccountService.getAccountsByUser(userId)).called(1);
+        sut.getAccountByUser(userId);
+        verify(() => mockAccountService.getAccountByUser(userId)).called(1);
       },
     );
     test(
       "should get accounts using the service",
       () async {
         arrangeAccountsService();
-        final accounts = await sut.getAccountsByUser(userId);
-        expect(accounts, accountFromService);
+        final account = await sut.getAccountByUser(userId);
+        expect(account, accountFromService[0]);
       },
     );
   });

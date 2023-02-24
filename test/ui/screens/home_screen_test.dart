@@ -3,8 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mock_data/mock_data.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
+import 'package:provider/provider.dart';
+import 'package:sunny_beach_bank/config/data_provider.dart';
 import 'package:sunny_beach_bank/domain/models/account/account.dart';
 import 'package:sunny_beach_bank/domain/models/user/user.dart';
+import 'package:sunny_beach_bank/domain/use_cases/account_data.dart';
+import 'package:sunny_beach_bank/domain/use_cases/user_data.dart';
 import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/account_data_api.dart';
 import 'package:sunny_beach_bank/infraestructure/driven_adapter/api/user_data_api.dart';
 import 'package:sunny_beach_bank/ui/screens/home_screen.dart';
@@ -57,21 +61,26 @@ void main() {
   ];
 
   void arrangeAccountsService() {
-    when(() => mockAccountService.getAccountsByUser(userId))
+    when(() => mockAccountService.getAccounts())
         .thenAnswer((_) async => accountFromService);
+    when(() => mockAccountService.updateBalanceByUser(userId, 0))
+        .thenAnswer((_) async => 0.0);
   }
 
   void arrangeUserService() {
-    when(() => mockUserService.getUser(userFromService[0].id))
-        .thenAnswer((_) async => userFromService[0]);
+    when(() => mockUserService.getUsers())
+        .thenAnswer((_) async => userFromService);
   }
 
   Widget createWidgetUnderTest() {
-    return MaterialApp(
+    return  MaterialApp(
         title: 'Home Screen',
-        home: HomeScreen(
-          user: mockUserService.getUser(userId),
-          accounts: mockAccountService.getAccountsByUser(userId),
+        home: ChangeNotifierProvider(
+          create: (_) => DataProvider(
+            UserDataUseCase(mockUserService), 
+          AccountDataUseCase(mockAccountService)
+          ),
+          child: const HomeScreen(),
         ));
   }
 
@@ -81,16 +90,16 @@ void main() {
       (WidgetTester tester) async {
         arrangeUserService();
         arrangeAccountsService();
-
+        
         await mockNetworkImages(() async {
-          await tester.pumpWidget(createWidgetUnderTest());
-
+          
+          await tester.pumpWidget(
+            createWidgetUnderTest()
+          );
           await tester.pumpAndSettle();
-
-          expect(
-              find.text(
-                  '${userFromService[0].name} ${userFromService[0].lastName}'),
-              findsOneWidget);
+          //await tester.pump(const Duration(milliseconds: 2000));
+          expect(find.text('${userFromService[0].name} ${userFromService[0].lastName}'),findsOneWidget);
+          
         });
       },
     );
@@ -105,10 +114,9 @@ void main() {
           await tester.pumpWidget(createWidgetUnderTest());
 
           await tester.pumpAndSettle();
-          final expectedAccountResult =accountFromService[0];
           expect(
               find.text(
-                  '\$${expectedAccountResult.balance}'),
+                  '\$0.0'),
               findsOneWidget);
           expect(
               find.text('6789'),
